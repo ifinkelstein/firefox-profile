@@ -293,3 +293,18 @@ user_pref("keyword.enabled", true);
 
 // Disable auto-update (manage updates manually)
 user_pref("app.update.auto", false);
+
+// ============================================================================
+// DOWNLOADS — skip "open/save" dialogs, always save to disk
+// ============================================================================
+
+// Always download files instead of asking what to do
+user_pref("browser.download.useDownloadDir", true);
+user_pref("browser.download.always_ask_before_handling_new_types", false);
+user_pref("browser.download.manager.addToRecentDocs", false);
+
+// Auto-download PDFs instead of opening in-browser
+user_pref("pdfjs.disabled", true);
+
+// Force-save all common file types that Firefox might try to handle internally
+user_pref("browser.helperApps.neverAsk.saveToDisk", "application/pdf,application/octet-stream,application/x-pdf,application/vnd.pdf,text/pdf,application/zip,application/x-zip-compressed,application/x-gzip,application/x-tar,application/x-bzip2,application/x-7z-compressed,application/x-rar-compressed,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/csv,application/json,application/xml,text/xml,image/svg+xml");
