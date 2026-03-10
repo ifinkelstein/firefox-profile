@@ -1,0 +1,225 @@
+/* Firefox userChrome.css
+ * https://github.com/ifinkelstein/firefox-profile
+ *
+ * Minimal, clean UI tweaks:
+ *   - Compact tab height
+ *   - Square tabs with accent indicator
+ *   - Tighter bookmark bar spacing
+ *   - Find bar at top
+ *   - Cleaner context menus
+ *   - Fix URL bar zoom animation
+ */
+
+/* ========================================================================== */
+/* FIND BAR — move to top of page                                             */
+/* ========================================================================== */
+
+.browserContainer > findbar {
+  -moz-box-ordinal-group: 0;
+}
+
+/* ========================================================================== */
+/* BOOKMARK BAR — tighter spacing                                             */
+/* ========================================================================== */
+
+toolbarbutton.bookmark-item {
+  padding: 3px 5px !important;
+}
+
+/* Bookmark menu spacing */
+menupopup > menuitem,
+menupopup > menu {
+  padding-block: 2px !important;
+  border-radius: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Square dropdowns */
+menupopup {
+  --panel-border-radius: 0px !important;
+}
+
+:root {
+  --arrowpanel-menuitem-padding: 0px 0px !important;
+}
+
+/* ========================================================================== */
+/* URL BAR — fix zoom animation (Firefox >75)                                 */
+/* ========================================================================== */
+
+#urlbar[breakout],
+#urlbar[breakout][breakout-extend] {
+  --urlbar-height: 28px !important;
+  --urlbar-toolbar-height: 30px !important;
+  width: 100% !important;
+  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+  left: 0 !important;
+}
+
+#urlbar[breakout][breakout-extend] > #urlbar-input-container,
+#urlbar-input-container {
+  height: var(--urlbar-height) !important;
+  width: 100% !important;
+  padding-block: unset !important;
+  padding-inline: unset !important;
+  transition: none !important;
+}
+
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* ========================================================================== */
+/* TABS — compact square tabs with accent line                                */
+/* ========================================================================== */
+
+/* Compact tab height */
+#TabsToolbar,
+#tabbrowser-tabs {
+  --tab-min-height: 29px !important;
+}
+
+#main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] + #TabsToolbar,
+#main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] + #TabsToolbar #tabbrowser-tabs {
+  --tab-min-height: 30px !important;
+}
+
+#TabsToolbar,
+#TabsToolbar > hbox,
+#TabsToolbar-customization-target,
+#tabbrowser-arrowscrollbox {
+  max-height: calc(var(--tab-min-height) + 1px) !important;
+}
+
+#TabsToolbar-customization-target toolbarbutton > .toolbarbutton-icon,
+#TabsToolbar-customization-target .toolbarbutton-text,
+#TabsToolbar-customization-target .toolbarbutton-badge-stack,
+#scrollbutton-up,
+#scrollbutton-down {
+  padding-top: 7px !important;
+  padding-bottom: 6px !important;
+}
+
+/* Square tab shape */
+.tab-background {
+  border-radius: 0 !important;
+  margin-block: 1px 0 !important;
+}
+
+.tabbrowser-tab {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Tab separator lines */
+.tabbrowser-tab:not([selected=true]):not([multiselected=true]):not([beforeselected-visible="true"]) .tab-background {
+  border-right: 1px solid var(--lwt-background-tab-background-color, rgba(0, 0, 0, .20)) !important;
+}
+
+[brighttext="true"] .tabbrowser-tab:not([selected=true]):not([multiselected=true]):not([beforeselected-visible="true"]) .tab-background {
+  border-right: 1px solid var(--lwt-background-tab-background-color, var(--lwt-selected-tab-background-color, rgba(255, 255, 255, .20))) !important;
+}
+
+.tabbrowser-tab:not([selected=true]):not([multiselected=true]) .tab-background {
+  border-radius: 0 !important;
+}
+
+/* Accent line on active tab */
+.tab-background::before {
+  content: "";
+  display: block;
+  height: 3px;
+  margin: -1px 0 0;
+}
+
+.tabbrowser-tab[selected] .tab-background::before {
+  background-color: #0a84ff;
+}
+
+.tabbrowser-tab[multiselected]:not([selected]) .tab-background::before {
+  background-color: color-mix(in srgb, #0a84ff 66%, transparent);
+}
+
+.tabbrowser-tab:not([selected], [multiselected]):hover .tab-background::before {
+  background-color: color-mix(in srgb, currentColor 33%, transparent);
+  transform: none;
+}
+
+.tabbrowser-tab:not([selected], [multiselected]) .tab-background::before {
+  transform: scaleX(.8);
+  transition: transform 100ms linear;
+}
+
+.tabbrowser-tab:not([selected], [multiselected]) .tab-background::before {
+  margin: -1px 0 0 !important;
+}
+
+/* ========================================================================== */
+/* CONTEXT MENU — hide clutter                                                */
+/* ========================================================================== */
+
+#context-sendimage,
+#context-sep-setbackground,
+#context-setDesktopBackground,
+#context-inspect-a11y {
+  display: none !important;
+}
+
+/* ========================================================================== */
+/* SCROLL BUTTONS                                                             */
+/* ========================================================================== */
+
+#scrollbutton-up,
+#scrollbutton-down {
+  border-top-width: 0 !important;
+  border-bottom-width: 0 !important;
+}
+
+/* ========================================================================== */
+/* CONTAINER TAB INDICATOR — bottom accent line                               */
+/* ========================================================================== */
+
+.tab-background {
+  --context-line-margin-adjust: 3px;
+  --context-line-active-adjust: 1px;
+}
+
+.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
+  margin: 0px max(calc(0px - 3px), 0px) !important;
+}
+
+.tabbrowser-tab[usercontextid]:is([selected=true], [visuallyselected="true"], [multiselected]) .tab-background {
+  border-top: 1px solid transparent;
+}
+
+.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
+  margin-top: calc(var(--tab-min-height) - var(--context-line-margin-adjust) - 2px) !important;
+}
+
+.tabbrowser-tab[usercontextid]:is([selected=true], [visuallyselected="true"], [multiselected]) > .tab-stack > .tab-background > .tab-context-line {
+  margin-top: calc(var(--tab-min-height) - var(--context-line-margin-adjust) - var(--context-line-active-adjust) - 2px) !important;
+}
+
+/* ========================================================================== */
+/* TAB AUDIO INDICATOR                                                        */
+/* ========================================================================== */
+
+.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) {
+  width: 20px !important;
+  height: 20px !important;
+  margin-left: calc(20px / 2 + 2px) !important;
+  margin-right: 2px !important;
+  padding: 0 !important;
+}
+
+.tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) > :not(.tab-icon-overlay) {
+  margin-left: -4px !important;
+  margin-top: calc((20px - 16px) / 2) !important;
+}
+
+.tabbrowser-tab:not(:hover) .tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]),
+.tabbrowser-tab:hover .tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) > :not(.tab-icon-overlay),
+:root[uidensity="compact"] .tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) > :not(.tab-icon-overlay) {
+  opacity: 1 !important;
+}
