@@ -2,7 +2,7 @@
 
 Opinionated Firefox `user.js` + `userChrome.css` for macOS. Twin goals: **kill the nags** and **harden security**.
 
-Tested on Firefox 148. Audited against [arkenfox/user.js](https://github.com/arkenfox/user.js) v140.
+Tested on Firefox 148+. Audited against [arkenfox/user.js](https://github.com/arkenfox/user.js) v140.
 
 ## Install
 
