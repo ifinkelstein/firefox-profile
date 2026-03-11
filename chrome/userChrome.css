@@ -1,13 +1,12 @@
 /* Firefox userChrome.css
  * https://github.com/ifinkelstein/firefox-profile
  *
- * Minimal, clean UI tweaks:
- *   - Compact tab height
+ * Minimal, clean UI tweaks for Firefox 148+:
+ *   - Compact tab height (uses native compact density value)
  *   - Square tabs with accent indicator
  *   - Tighter bookmark bar spacing
  *   - Find bar at top
  *   - Cleaner context menus
- *   - Fix URL bar zoom animation
  */
 
 /* ========================================================================== */
@@ -44,28 +43,10 @@ menupopup {
 }
 
 /* ========================================================================== */
-/* URL BAR — fix zoom animation (Firefox >75)                                 */
+/* URL BAR — disable breakout expand animation                                */
 /* ========================================================================== */
 
-#urlbar[breakout],
-#urlbar[breakout][breakout-extend] {
-  --urlbar-height: 28px !important;
-  --urlbar-toolbar-height: 30px !important;
-  width: 100% !important;
-  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
-  left: 0 !important;
-}
-
-#urlbar[breakout][breakout-extend] > #urlbar-input-container,
-#urlbar-input-container {
-  height: var(--urlbar-height) !important;
-  width: 100% !important;
-  padding-block: unset !important;
-  padding-inline: unset !important;
-  transition: none !important;
-}
-
-#urlbar[breakout][breakout-extend] > #urlbar-background {
+#urlbar[breakout][breakout-extend] > .urlbar-background {
   box-shadow: none !important;
   animation: none !important;
 }
@@ -74,31 +55,11 @@ menupopup {
 /* TABS — compact square tabs with accent line                                */
 /* ========================================================================== */
 
-/* Compact tab height */
-#TabsToolbar,
-#tabbrowser-tabs {
+/* Use Firefox's compact density tab height (29px).
+ * The toolbar sizes itself via --tabstrip-min-height (29 + 2*4 = 37px),
+ * which leaves room for macOS traffic-light buttons. */
+:root {
   --tab-min-height: 29px !important;
-}
-
-#main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] + #TabsToolbar,
-#main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] + #TabsToolbar #tabbrowser-tabs {
-  --tab-min-height: 30px !important;
-}
-
-#TabsToolbar,
-#TabsToolbar > hbox,
-#TabsToolbar-customization-target,
-#tabbrowser-arrowscrollbox {
-  max-height: calc(var(--tab-min-height) + 1px) !important;
-}
-
-#TabsToolbar-customization-target toolbarbutton > .toolbarbutton-icon,
-#TabsToolbar-customization-target .toolbarbutton-text,
-#TabsToolbar-customization-target .toolbarbutton-badge-stack,
-#scrollbutton-up,
-#scrollbutton-down {
-  padding-top: 7px !important;
-  padding-bottom: 6px !important;
 }
 
 /* Square tab shape */
